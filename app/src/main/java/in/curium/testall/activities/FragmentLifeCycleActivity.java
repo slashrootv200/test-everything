@@ -1,17 +1,18 @@
-package in.curium.testall;
+package in.curium.testall.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import in.curium.testall.R;
 import in.curium.testall.fragments.F1;
 
-public class MainActivity extends AppCompatActivity {
+public class FragmentLifeCycleActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_fragment_life_cycle);
   }
 
   public void click(View v) {
