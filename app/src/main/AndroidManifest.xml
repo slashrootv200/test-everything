@@ -18,6 +18,8 @@
       </intent-filter>
     </activity>
     <activity android:name=".activities.FragmentLifeCycleActivity"/>
+    <activity android:name=".activities.ParcelableListContainerActivity"/>
+    <activity android:name=".activities.ParcelableListContainerReaderActivity"/>
   </application>
 
 </manifest>

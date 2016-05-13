@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import in.curium.testall.activities.FragmentLifeCycleActivity;
+import in.curium.testall.activities.ParcelableListContainerActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class LauncherActivity extends AppCompatActivity {
   private List<ScreenObject> getListOfScreens() {
     List<ScreenObject> list = new ArrayList<>();
     list.add(new ScreenObject(FragmentLifeCycleActivity.class));
+    list.add(new ScreenObject(ParcelableListContainerActivity.class));
     return list;
   }
 }
