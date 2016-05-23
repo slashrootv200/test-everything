@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">TestEveryThingApp</string>
+  <string name="querieable_service_started_message">Queriable service started</string>
+  <string name="querieable_service_stopped_message">Queriable service stopped</string>
 </resources>

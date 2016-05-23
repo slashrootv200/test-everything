@@ -27,7 +27,7 @@ public class ParcelableListContainerActivity extends AppCompatActivity {
   }
 
   public void parcelMe(View v) {
-    ParcelableListContainer<ListObject> ok = new ParcelableListContainer<>();
+    ParcelableListContainer<ListObject> ok = new ParcelableListContainer<>(ListObject.class);
     ok.setListOfT(ListObject.getListOfListObject());
     mBundle.putParcelable(KEY, ok);
     Intent intent = new Intent(this, ParcelableListContainerReaderActivity.class);

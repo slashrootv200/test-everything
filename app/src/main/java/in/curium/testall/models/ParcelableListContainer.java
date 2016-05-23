@@ -20,13 +20,23 @@ public class ParcelableListContainer<T extends Parcelable> implements Parcelable
         }
       };
   private List<T> listOfT;
+  private Class<T> clazz;
 
-  public ParcelableListContainer() {
+  public ParcelableListContainer(Class<T> clazz) {
+    this.clazz = clazz;
   }
 
+  private Creator<T> creator;
+
   protected ParcelableListContainer(Parcel in) {
-    this.listOfT = new ArrayList<>();
-    in.readTypedList(this.listOfT, null);
+    listOfT = new ArrayList<>();
+    String className = in.readString();
+    try {
+      clazz = (Class<T>) Class.forName(className);
+      in.readList(listOfT, clazz.getClassLoader());
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
   }
 
   public List<T> getListOfT() {
@@ -44,6 +54,7 @@ public class ParcelableListContainer<T extends Parcelable> implements Parcelable
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
-    dest.writeTypedList(this.listOfT);
+    dest.writeString(clazz.getCanonicalName());
+    dest.writeTypedList(listOfT);
   }
 }

@@ -6,8 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import in.curium.testall.activities.AnimationActivity;
+import in.curium.testall.activities.EditTextTestActivity;
+import in.curium.testall.activities.ExoMediaActivity;
 import in.curium.testall.activities.FragmentLifeCycleActivity;
 import in.curium.testall.activities.ParcelableListContainerActivity;
+import in.curium.testall.activities.QueriableServiceConnectedActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +39,10 @@ public class LauncherActivity extends AppCompatActivity {
     List<ScreenObject> list = new ArrayList<>();
     list.add(new ScreenObject(FragmentLifeCycleActivity.class));
     list.add(new ScreenObject(ParcelableListContainerActivity.class));
+    list.add(new ScreenObject(QueriableServiceConnectedActivity.class));
+    list.add(new ScreenObject(AnimationActivity.class));
+    list.add(new ScreenObject(ExoMediaActivity.class));
+    list.add(new ScreenObject(EditTextTestActivity.class));
     return list;
   }
 }
