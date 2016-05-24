@@ -2,12 +2,10 @@ package in.curium.testall.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.IntRange;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.EMVideoView;
-import com.devbrackets.android.exomedia.ui.widget.VideoControls;
 import in.curium.testall.R;
 
 public class ExoMediaActivity extends AppCompatActivity implements OnPreparedListener {
@@ -30,42 +28,6 @@ public class ExoMediaActivity extends AppCompatActivity implements OnPreparedLis
               "http://dev-media-cdn.mytvstudio.com/medialibrary/videos/Sintel-2010-1080p-29_97FPS-AC3-2273298__mobile.m3u8"));
       //mEmVideoView.start();
       mEmVideoView.setMeasureBasedOnAspectRatioEnabled(true);
-      mEmVideoView.setControls(new VideoControls(getApplicationContext()) {
-        @Override
-        public void setPosition(
-            @IntRange(from = 0L)
-            long position) {
-
-        }
-
-        @Override
-        public void setDuration(
-            @IntRange(from = 0L)
-            long duration) {
-
-        }
-
-        @Override
-        public void updateProgress(
-            @IntRange(from = 0L)
-            long position,
-            @IntRange(from = 0L)
-            long duration,
-            @IntRange(from = 0L, to = 100L)
-            int bufferPercent) {
-
-        }
-
-        @Override
-        protected int getLayoutResource() {
-          return 0;
-        }
-
-        @Override
-        protected void animateVisibility(boolean toVisible) {
-
-        }
-      });
     }
   }
 
