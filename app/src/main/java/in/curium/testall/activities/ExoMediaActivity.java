@@ -22,6 +22,7 @@ import com.google.android.exoplayer.MediaFormat;
 import in.curium.testall.R;
 import in.curium.testall.adapters.VideoUriListAdapter;
 import in.curium.testall.video.samples.Samples;
+import in.curium.testall.video.ui.MyVideoControls;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -101,6 +102,7 @@ public class ExoMediaActivity extends AppCompatActivity
 
   private void initView() {
     mEmVideoView = (EMVideoView) findViewById(R.id.em_video_id);
+    mEmVideoView.setControls(new MyVideoControls(this));
     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.uri_list_id);
     mTitle = (TextView) findViewById(R.id.em_title_tv);
     if (recyclerView != null) {

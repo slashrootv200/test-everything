@@ -41,8 +41,8 @@ public class LauncherActivity extends AppCompatActivity {
     list.add(new ScreenObject(ParcelableListContainerActivity.class));
     list.add(new ScreenObject(QueriableServiceConnectedActivity.class));
     list.add(new ScreenObject(AnimationActivity.class));
-    list.add(new ScreenObject(ExoMediaActivity.class));
     list.add(new ScreenObject(EditTextTestActivity.class));
+    list.add(new ScreenObject(ExoMediaActivity.class));
     return list;
   }
 }

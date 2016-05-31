@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="ErrorStateEditText2">
+    <attr name="textSize" format="dimension"/>
+    <attr name="errorStyle" format="reference" />
+    <attr name="textColor" format="color"/>
+    <attr name="errorTextColor" format="color"/>
+  </declare-styleable>
+</resources>

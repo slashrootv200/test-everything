@@ -9,7 +9,7 @@
   <com.devbrackets.android.exomedia.ui.widget.EMVideoView
       android:id="@+id/em_video_id"
       android:layout_width="match_parent"
-      app:useDefaultControls="true"
+      app:useDefaultControls="false"
       android:layout_height="250dp"
       />
   <TextView
