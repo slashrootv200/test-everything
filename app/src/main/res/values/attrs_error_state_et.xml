@@ -2,8 +2,7 @@
 <resources>
   <declare-styleable name="ErrorStateEditText2">
     <attr name="textSize" format="dimension"/>
-    <attr name="errorStyle" format="reference" />
-    <attr name="textColor" format="color"/>
-    <attr name="errorTextColor" format="color"/>
+    <attr name="textNormalColor" format="color"/>
+    <attr name="useErrorColorOnText" format="boolean"/>
   </declare-styleable>
 </resources>

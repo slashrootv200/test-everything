@@ -76,10 +76,10 @@ public class EditTextTestActivity extends AppCompatActivity {
     //    tIL2.setError(null);
     //  }
     //}
-    if (e4.getError() == null) {
+    if (!e4.isInErrorState()) {
       e4.setError("The Error");
     } else {
-      e4.setError(null);
+      e4.removeError();
     }
   }
 }

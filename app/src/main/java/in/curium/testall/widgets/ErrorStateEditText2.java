@@ -8,7 +8,6 @@ import android.os.Build;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -20,10 +19,10 @@ public class ErrorStateEditText2 extends FrameLayout {
   private final String TAG = ErrorStateEditText2.class.getCanonicalName();
   private TextInputLayout mTextInputLayout;
   private TextInputEditText mTextInputEditText;
-  private int mErrorStateEditText2Style;
   private float mTextSize;
-  private int mTextColor;
+  private int mTextNormalColor;
   private int mErrorTextColor;
+  private boolean mUseErrorColorOnText = false;
 
   public ErrorStateEditText2(Context context, AttributeSet attrs) {
     super(context, attrs);
@@ -50,8 +49,15 @@ public class ErrorStateEditText2 extends FrameLayout {
     getValuesFromAttrs(attrs);
     View view = inflateLayout();
     getReferencesToChildViews(view);
+    setValuesOnViews();
     addView(view);
     dLog("exiting initView");
+  }
+
+  protected void setValuesOnViews() {
+    initErrorColor();
+    mTextInputEditText.setTextSize(mTextSize);
+    mTextInputEditText.setTextColor(mTextNormalColor);
   }
 
   protected void getReferencesToChildViews(View view) {
@@ -68,21 +74,28 @@ public class ErrorStateEditText2 extends FrameLayout {
     return view;
   }
 
+  protected void updateViewsBasedOnValues() {
+    dLog("entering updateViewsBasedOnValues");
+    mTextInputEditText.setTextSize(mTextSize);
+    mTextInputEditText.setTextColor(mTextNormalColor);
+    dLog("exiting updateViewsBasedOnValues");
+  }
+
   protected void getValuesFromAttrs(AttributeSet attrs) {
     dLog("Entering getValuesFromAttrs; attrs = " + attrs);
     TypedArray typedArray = getContext().getTheme()
         .obtainStyledAttributes(attrs, R.styleable.ErrorStateEditText2, 0, 0);
     dLog("getting values from TypedArray");
     try {
-      dLog("mErrorStateEditText2Style = " + mErrorStateEditText2Style);
       mTextSize = typedArray.getDimension(R.styleable.ErrorStateEditText2_textSize, 12F);
       dLog("mTextSize = " + mTextSize);
-      mTextColor = typedArray.getColor(R.styleable.ErrorStateEditText2_textColor,
-          ContextCompat.getColor(getContext(), android.R.color.black));
-      dLog("mTextColor = " + mTextColor);
-      mErrorTextColor = typedArray.getColor(R.styleable.ErrorStateEditText2_errorTextColor,
-          ContextCompat.getColor(getContext(), android.R.color.holo_red_dark));
-      dLog("mErrorTextColor = " + mErrorTextColor);
+      int colorT = getColor(android.R.attr.textColor);
+      int colorF = ContextCompat.getColor(getContext(), colorT);
+      mTextNormalColor =
+          typedArray.getColor(R.styleable.ErrorStateEditText2_textNormalColor, colorF);
+      mUseErrorColorOnText =
+          typedArray.getBoolean(R.styleable.ErrorStateEditText2_useErrorColorOnText, false);
+      dLog("mTextColor = " + mTextNormalColor);
     } finally {
       dLog("recycling TypedArray");
       typedArray.recycle();
@@ -90,21 +103,45 @@ public class ErrorStateEditText2 extends FrameLayout {
     dLog("Exiting getValuesFromAttrs");
   }
 
-  public void setError(CharSequence error) {
-    dLog("entering setError " + error);
-    if (TextUtils.isEmpty(error)) {
-      // no error
-      mTextInputEditText.setTextColor(mTextColor);
-    } else {
-      // error
-      TypedValue typedValue = new TypedValue();
-      Resources.Theme theme = getContext().getTheme();
-      theme.resolveAttribute(R.attr.textColorError, typedValue, true);
-      int color = typedValue.data;
-      mTextInputEditText.setTextColor(color);
-    }
-    mTextInputLayout.setError(error);
-    dLog("exiting setError");
+  public float getTextSize() {
+    return this.mTextSize;
+  }
+
+  public void setTextSize(float textSize) {
+    this.mTextSize = textSize;
+    mTextInputEditText.setTextSize(this.mTextSize);
+  }
+
+  public boolean isUseErrorColorOnText() {
+    return this.mUseErrorColorOnText;
+  }
+
+  public void setUseErrorColorOnText(boolean useErrorColorOnText) {
+    this.mUseErrorColorOnText = useErrorColorOnText;
+  }
+
+  public void removeError() {
+    mTextInputEditText.setTextColor(mTextNormalColor);
+    mTextInputLayout.setError(null);
+  }
+
+  private int getColor(int colorType) {
+    TypedValue typedValue = new TypedValue();
+    Resources.Theme theme = getContext().getTheme();
+    boolean found = theme.resolveAttribute(colorType, typedValue, true);
+    int color = android.R.color.black;
+    if (found) color = typedValue.data;
+    return color;
+  }
+
+  private void initErrorColor() {
+    mErrorTextColor = getColor(R.attr.textColorError);
+  }
+
+  private void setNormaTextColor(int colorResId) {
+    int normalTextColor = ContextCompat.getColor(getContext(), colorResId);
+    mTextNormalColor = normalTextColor;
+    mTextInputEditText.setTextColor(normalTextColor);
   }
 
   public CharSequence getError() {
@@ -112,6 +149,25 @@ public class ErrorStateEditText2 extends FrameLayout {
     CharSequence cs = mTextInputLayout.getError();
     dLog("exiting getError, returning " + cs);
     return cs;
+  }
+
+  public boolean isInErrorState() {
+    dLog("entering isInErrorState");
+    return !(mTextInputLayout.getError() == null || mTextInputLayout.getError().length() == 0);
+  }
+
+  public void setError(CharSequence error) {
+    if (error == null || error.length() == 0) {
+      if (mUseErrorColorOnText) {
+        mTextInputEditText.setTextColor(mErrorTextColor);
+      }
+      mTextInputLayout.setError(" ");
+    } else {
+      if (mUseErrorColorOnText) {
+        mTextInputEditText.setTextColor(mErrorTextColor);
+      }
+      mTextInputLayout.setError(error);
+    }
   }
 
   private final void dLog(String message) {
